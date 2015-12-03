@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,17 +18,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ANb-mC-dtp">
-                                <rect key="frame" x="0.0" y="20" width="600" height="180"/>
-                                <animations/>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZCd-WH-SSO">
-                                <rect key="frame" x="0.0" y="200" width="600" height="400"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="MQY-19-p38">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerPic" translatesAutoresizingMaskIntoConstraints="NO" id="hFx-tR-VhE">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            <animations/>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="hFx-tR-VhE" firstAttribute="top" secondItem="MQY-19-p38" secondAttribute="top" id="X9H-7f-B0g"/>
+                                        <constraint firstAttribute="trailing" secondItem="hFx-tR-VhE" secondAttribute="trailing" id="fel-re-9Lg"/>
+                                        <constraint firstItem="hFx-tR-VhE" firstAttribute="leading" secondItem="MQY-19-p38" secondAttribute="leading" id="vef-RO-Sh7"/>
+                                        <constraint firstAttribute="bottom" secondItem="hFx-tR-VhE" secondAttribute="bottom" id="yNH-TO-ga7"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="CLQ-jH-XdH">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="328" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CLQ-jH-XdH" id="5fx-Oh-TMZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -49,30 +62,23 @@
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ANb-mC-dtp" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="1O4-gt-QI3"/>
+                            <constraint firstItem="ZCd-WH-SSO" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="04k-w6-zbQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZCd-WH-SSO" secondAttribute="trailing" constant="-20" id="Dhl-ma-9A7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ANb-mC-dtp" secondAttribute="trailing" constant="-20" id="Qgg-ee-p2D"/>
-                            <constraint firstItem="ZCd-WH-SSO" firstAttribute="top" secondItem="ANb-mC-dtp" secondAttribute="bottom" id="WsF-QF-nwL"/>
-                            <constraint firstItem="ANb-mC-dtp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Z9Q-3N-xcs"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ZCd-WH-SSO" secondAttribute="bottom" id="eZ2-74-In2"/>
-                            <constraint firstItem="ANb-mC-dtp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="h7w-LH-HT8"/>
                             <constraint firstItem="ZCd-WH-SSO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="kQR-Vs-sR9"/>
-                            <constraint firstItem="ANb-mC-dtp" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="kTN-dO-RMg"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="1O4-gt-QI3"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="headerImage" destination="ANb-mC-dtp" id="pqy-5n-W04"/>
+                        <outlet property="headerImage" destination="hFx-tR-VhE" id="YeV-J7-m8J"/>
                         <outlet property="tableView" destination="ZCd-WH-SSO" id="JtX-GS-BtN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448" y="395"/>
+            <point key="canvasLocation" x="462" y="387"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="headerPic" width="2592" height="1661"/>
+    </resources>
 </document>

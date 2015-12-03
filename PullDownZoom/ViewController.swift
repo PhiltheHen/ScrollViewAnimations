@@ -5,6 +5,7 @@
 //  Created by Philip Henson on 11/29/15.
 //  Copyright © 2015 Phil Henson. All rights reserved.
 //
+//  With help from Mattew Cheok's Blog: http://blog.matthewcheok.com/design-teardown-stretchy-headers/
 
 import UIKit
 
@@ -13,21 +14,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerImage: UIImageView!
 
+    var headerView: UIView!
+
     let array = ["Line 1", "Line 2", "Line 3"]
 
-    var originalFrame: CGRect?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        headerImage.image = UIImage(named: "headerPic")
-        tableView.reloadData()
-        originalFrame = headerImage.frame
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+        headerView = tableView.tableHeaderView
+        tableView.tableHeaderView = nil
+        tableView.addSubview(headerView)
+
+        tableView.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
+        tableView.contentOffset = CGPoint(x: 0, y: -280) // needs to be 280 because table view is offset by 20 from the top of the superview
+        updateHeaderView()
+        tableView.reloadData()
+
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -42,20 +46,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 3
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let yPos = scrollView.contentOffset.y as CGFloat
-        var avatarTransform = CATransform3DIdentity
-        var headerTransform = CATransform3DIdentity
-
-        if (yPos < 0) {
-            let headerScaleFactor:CGFloat = -(yPos) / headerImage.bounds.height
-            let headerSizevariation = ((headerImage.bounds.height * (1.0 + headerScaleFactor)) - headerImage.bounds.height)/2.0
-            headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
-            headerTransform = CATransform3DScale(headerTransform, 1.0 + headerScaleFactor, 1.0 + headerScaleFactor, 0)
-
-            headerImage.layer.transform = headerTransform
+    func updateHeaderView() {
+        var headerRect = CGRect(x: 0, y: -300, width: tableView.bounds.width, height: 300)
+        if tableView.contentOffset.y < -300 {
+            headerRect.origin.y = tableView.contentOffset.y
+            headerRect.size.height = -tableView.contentOffset.y
         }
+        headerView.frame = headerRect
+    }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateHeaderView()
     }
 
 
